@@ -1,4 +1,4 @@
-## [0.1.3] - 2026-09-01
+## [0.1.4] - 2026-09-01
 
 - Add recursive example directories
 - Switch from YARD to RBS comments
