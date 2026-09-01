@@ -16,7 +16,7 @@ class ConfigFileManagerTest < ::Minitest::Test
           'config/nest1/dummy2.yml',
           'config/bar.yml',
           'config/foo.yml',
-          'config/text_with_erb.txt'
+          'config/text_with_erb.txt',
         )
         got = loader.files.sort
         assert_equal want, got
@@ -30,7 +30,7 @@ class ConfigFileManagerTest < ::Minitest::Test
           'config/nest1/dummy2.yml',
           'config/bar.yml',
           'config/foo.yml',
-          'config/text_with_erb.txt'
+          'config/text_with_erb.txt',
         )
         got = loader.files.sort
         assert_equal want, got
@@ -42,7 +42,7 @@ class ConfigFileManagerTest < ::Minitest::Test
           'config/dummy1.yml',
           'config/bar.yml',
           'config/foo.yml',
-          'config/text_with_erb.txt'
+          'config/text_with_erb.txt',
         )
         got = loader.files.sort
         assert_equal want, got
@@ -57,7 +57,7 @@ class ConfigFileManagerTest < ::Minitest::Test
           'config/nest1/nest2/kvatch.yml',
           'config/nest1/dummy2-alt.yml',
           'config/morrowind.yml',
-          'config/dummy1-alt.yml'
+          'config/dummy1-alt.yml',
         )
         got = loader.files.sort
         assert_equal want, got
@@ -70,7 +70,7 @@ class ConfigFileManagerTest < ::Minitest::Test
           'config/nest1/nest2/kvatch.yml',
           'config/nest1/dummy2-alt.yml',
           'config/morrowind.yml',
-          'config/dummy1-alt.yml'
+          'config/dummy1-alt.yml',
         )
         got = loader.files(example_extension: '.alt').sort
         assert_equal want, got
@@ -82,7 +82,7 @@ class ConfigFileManagerTest < ::Minitest::Test
           'config/nest1/venus.yml',
           'config/nest1/dummy2-alt.yml',
           'config/morrowind.yml',
-          'config/dummy1-alt.yml'
+          'config/dummy1-alt.yml',
         )
         got = loader.files.sort
         assert_equal want, got
@@ -92,7 +92,7 @@ class ConfigFileManagerTest < ::Minitest::Test
         loader = ConfigFileManager.new(CONFIG_DIR_PATH, max_dir_depth: 0, example_extension: '.alt')
         want = to_absolute_paths(
           'config/morrowind.yml',
-          'config/dummy1-alt.yml'
+          'config/dummy1-alt.yml',
         )
         got = loader.files.sort
         assert_equal want, got
@@ -105,7 +105,17 @@ class ConfigFileManagerTest < ::Minitest::Test
     should 'list all with .example' do
       loader = ConfigFileManager.new(CONFIG_DIR_PATH)
       want = to_absolute_paths(
-        'config/test_folder'
+        'config/nest1/nest2/nest3',
+        'config/test_folder',
+      )
+      got = loader.dirs.sort
+      assert_equal want, got
+    end
+
+    should 'list all dirs up to depth 0' do
+      loader = ConfigFileManager.new(CONFIG_DIR_PATH, max_dir_depth: 0)
+      want = to_absolute_paths(
+        'config/test_folder',
       )
       got = loader.dirs.sort
       assert_equal want, got
@@ -114,7 +124,7 @@ class ConfigFileManagerTest < ::Minitest::Test
     should 'list all with .alt' do
       loader = ConfigFileManager.new(CONFIG_DIR_PATH, example_extension: '.alt')
       want = to_absolute_paths(
-        'config/alt_folder'
+        'config/alt_folder',
       )
       got = loader.dirs.sort
       assert_equal want, got
@@ -123,7 +133,7 @@ class ConfigFileManagerTest < ::Minitest::Test
     should 'list all with .alt by overriding the default' do
       loader = ConfigFileManager.new(CONFIG_DIR_PATH, example_extension: '.example')
       want = to_absolute_paths(
-        'config/alt_folder'
+        'config/alt_folder',
       )
       got = loader.dirs(example_extension: '.alt').sort
       assert_equal want, got
